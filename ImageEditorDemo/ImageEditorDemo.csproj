@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GraphicsViewFramework\GraphicsViewFramework.csproj" />
+    <ProjectReference Include="..\ImageEditorFramework\ImageEditorFramework.csproj" />
   </ItemGroup>
 
 </Project>

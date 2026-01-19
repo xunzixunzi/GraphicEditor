@@ -1,0 +1,35 @@
+<Window x:Class="ImageEditorDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageEditorDemo"
+        xmlns:ief="clr-namespace:ImageEditorFramework;assembly=ImageEditorFramework"
+        mc:Ignorable="d"
+        Title="Image Editor Demo" Height="600" Width="900">
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Content="Load Image" Click="LoadImage_Click" />
+            <Separator />
+            <Button Content="Zoom In" Click="ZoomIn_Click" />
+            <Button Content="Zoom Out" Click="ZoomOut_Click" />
+            <Button Content="Fit to Window" Click="FitToWindow_Click" />
+            <Button Content="Actual Size" Click="ActualSize_Click" />
+            <Separator />
+            <TextBlock Text="Zoom Speed:" VerticalAlignment="Center" Margin="5,0" />
+            <TextBox Name="ZoomSpeedTextBox" Text="0.001" Width="60" VerticalAlignment="Center" />
+            <Button Content="Apply" Click="ApplyZoomSpeed_Click" />
+            <Separator />
+            <Button Name="ViewToolButton" Content="View" Click="SetViewTool_Click" />
+            <Button Name="RectToolButton" Content="Rectangle" Click="SetRectTool_Click" />
+            <Button Name="EllipseToolButton" Content="Ellipse" Click="SetEllipseTool_Click" />
+            <Button Name="LineToolButton" Content="Line" Click="SetLineTool_Click" />
+            <Button Name="PolygonToolButton" Content="Polygon" Click="SetPolygonTool_Click" />
+            <Button Name="TextToolButton" Content="Text" Click="SetTextTool_Click" />
+            <Separator />
+            <TextBlock Name="InfoTextBlock" VerticalAlignment="Center" />
+        </ToolBar>
+
+        <ief:ImageView Name="ImageView" Background="LightGray" />
+    </DockPanel>
+</Window>

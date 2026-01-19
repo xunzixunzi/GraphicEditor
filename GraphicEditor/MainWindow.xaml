@@ -1,12 +1,34 @@
-﻿<Window x:Class="GraphicEditor.MainWindow"
+<Window x:Class="GraphicEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
+        xmlns:gvf="clr-namespace:GraphicsViewFramework;assembly=GraphicsViewFramework"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Graphic Editor - WPF Graphics View Framework" Height="600" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <ToolBar Grid.Row="0">
+            <Button Content="Add Rectangle" Click="AddRectangle_Click"/>
+            <Button Content="Add Ellipse" Click="AddEllipse_Click"/>
+            <Button Content="Add Line" Click="AddLine_Click"/>
+            <Button Content="Add Triangle" Click="AddTriangle_Click"/>
+            <Button Content="Add Pentagon" Click="AddPentagon_Click"/>
+            <Button Content="Add Star" Click="AddStar_Click"/>
+            <Separator/>
+            <Button Content="Add Text" Click="AddText_Click"/>
+            <Button Content="Add Image" Click="AddImage_Click"/>
+            <Separator/>
+            <Button Content="Clear" Click="Clear_Click"/>
+        </ToolBar>
+
+        <Border Grid.Row="1" Background="LightGray" BorderBrush="Gray" BorderThickness="2">
+            <gvf:GraphicsView x:Name="graphicsView" Background="White"/>
+        </Border>
     </Grid>
 </Window>
