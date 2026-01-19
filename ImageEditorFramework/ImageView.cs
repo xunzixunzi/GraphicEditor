@@ -78,7 +78,7 @@ public class ImageView : GraphicsView
 
     protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
     {
-        if (InteractionMode == InteractionMode.Draw && CurrentTool != null && ImageScene != null)
+        if (InteractionMode == InteractionMode.Draw && CurrentTool != null && ImageScene != null && e.ChangedButton == MouseButton.Left)
         {
             var viewPoint = e.GetPosition(this);
             var scenePoint = MapToScene(viewPoint);
@@ -108,7 +108,7 @@ public class ImageView : GraphicsView
 
     protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
     {
-        if (InteractionMode == InteractionMode.Draw && CurrentTool != null && ImageScene != null)
+        if (InteractionMode == InteractionMode.Draw && CurrentTool != null && ImageScene != null && e.ChangedButton == MouseButton.Left)
         {
             var viewPoint = e.GetPosition(this);
             var scenePoint = MapToScene(viewPoint);

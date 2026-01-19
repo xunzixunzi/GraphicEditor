@@ -9,8 +9,22 @@ public class PolygonItem : GraphicsItem
     private Brush _fill = Brushes.Yellow;
     private Brush _stroke = Brushes.Black;
     private double _strokeThickness = 1;
+    private bool _isClosed = true;
 
     public IList<Point> Points => _points.AsReadOnly();
+
+    public bool IsClosed
+    {
+        get => _isClosed;
+        set
+        {
+            if (_isClosed != value)
+            {
+                _isClosed = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public Brush Fill
     {
@@ -98,7 +112,7 @@ public class PolygonItem : GraphicsItem
 
     public override bool Contains(Point localPoint)
     {
-        if (_points.Count < 3)
+        if (_points.Count < 3 || !IsClosed)
             return false;
 
         return IsPointInPolygon(localPoint, _points);
@@ -109,12 +123,15 @@ public class PolygonItem : GraphicsItem
         if (_points.Count < 2)
             return;
 
-        if (_points.Count == 2)
+        if (_points.Count == 2 || !IsClosed)
         {
-            context.DrawLine(
-                new Pen(Stroke, StrokeThickness),
-                _points[0],
-                _points[1]);
+            for (int i = 0; i < _points.Count - 1; i++)
+            {
+                context.DrawLine(
+                    new Pen(Stroke, StrokeThickness),
+                    _points[i],
+                    _points[i + 1]);
+            }
         }
         else
         {
@@ -124,7 +141,7 @@ public class PolygonItem : GraphicsItem
                 segments.Points.Add(_points[i]);
             }
 
-            var figure = new PathFigure(_points[0], new[] { segments }, true);
+            var figure = new PathFigure(_points[0], new[] { segments }, IsClosed);
             var geometry = new PathGeometry(new[] { figure });
 
             context.DrawGeometry(Fill, new Pen(Stroke, StrokeThickness), geometry);

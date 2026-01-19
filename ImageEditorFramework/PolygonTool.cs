@@ -19,6 +19,12 @@ public class PolygonTool : IDrawingTool
     {
         if (Keyboard.Modifiers == ModifierKeys.Control)
         {
+            if (_isDrawing && _currentPolygon != null && _firstPoint.HasValue)
+            {
+                var dx = scenePoint.X - _firstPoint.Value.X;
+                var dy = scenePoint.Y - _firstPoint.Value.Y;
+                _currentPolygon.AddPoint(new Point(dx, dy));
+            }
             Finish(scene);
             return;
         }
@@ -34,7 +40,8 @@ public class PolygonTool : IDrawingTool
                 Stroke = Brushes.Purple,
                 StrokeThickness = 2,
                 Fill = Brushes.Transparent,
-                ZValue = 100
+                ZValue = 100,
+                IsClosed = false
             };
             _currentPolygon.AddPoint(new Point(0, 0));
             scene.AddItem(_currentPolygon);
@@ -77,11 +84,8 @@ public class PolygonTool : IDrawingTool
 
     public void OnMouseUp(Point scenePoint, ImageScene scene, ImageView view)
     {
-        if (Keyboard.Modifiers == ModifierKeys.Control)
-        {
-            Finish(scene);
-        }
     }
+
 
     public void Finish(ImageScene scene)
     {
@@ -89,6 +93,10 @@ public class PolygonTool : IDrawingTool
         {
             scene.RemoveItem(_previewLine);
             _previewLine = null;
+        }
+        if (_currentPolygon != null)
+        {
+            _currentPolygon.IsClosed = true;
         }
         _currentPolygon = null;
         _firstPoint = null;
